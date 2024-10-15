@@ -52,7 +52,7 @@ Open the Power BI file (Customer Churn Analysis.pbix) to view the dashboard.
 Follow the provided instructions for any optional predictive modeling or additional data exploration.
 
 # Project Structure
-/data: Contains the dataset used for analysis.
+data: Contains the dataset used for analysis.
 Customer Churn Analysis.pbix: The Power BI dashboard file.
 Insights
 Key drivers of churn identified include low credit scores, high age groups, and inactive memberships.
