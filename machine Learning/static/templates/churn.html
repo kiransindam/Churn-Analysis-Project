@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Customer Churn Analysis Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: white;
+        }
+        #container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .card {
+            perspective: 1000px;
+        }
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            width: 400px;
+            padding: 20px;
+            background: rgba(34, 34, 34, 0.8);
+            border-radius: 10px;
+        }
+        .card-inner:hover {
+            transform: rotateY(15deg);
+        }
+        input, select {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h4 {
+            color: #FF5722;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #777;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div class="card">
+        <div class="card-inner">
+            <h3>Customer Churn Prediction</h3>
+            <form action="/predict" method="POST">
+                <label for="credit_score">Credit Score</label>
+                <input type="number" step="0.01" name="credit_score" placeholder="Credit Score" required>
+
+                <label for="country">Country</label>
+                <select name="country" required>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Spain">Spain</option>
+                </select>
+
+                <label for="gender">Gender</label>
+                <select name="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+                <label for="age">Age</label>
+                <input type="number" name="age" placeholder="Age" required>
+
+                <label for="tenure">Tenure</label>
+                <input type="number" name="tenure" placeholder="Tenure" required>
+
+                <label for="balance">Balance</label>
+                <input type="number" step="0.01" name="balance" placeholder="Balance" required>
+
+                <label for="products_number">Number of Products</label>
+                <select name="products_number" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+
+                <label for="credit_card">Has Credit Card</label>
+                <select name="credit_card" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+
+                <label for="active_member">Active Member</label>
+                <select name="active_member" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+
+                <label for="estimated_salary">Estimated Salary</label>
+                <input type="number" step="0.01" name="estimated_salary" placeholder="Estimated Salary" required>
+
+                <button type="submit">Predict</button>
+            </form>
+            {% if prediction_text %}
+                <h4>{{ prediction_text }}</h4>
+            {% endif %}
+            <div class="footer">
+                <p>Built by Kiran Sindam</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Basic 3D animation for a Customer Churn theme with Three.js
+    let scene = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    let renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Creating floating data points for a churn analysis theme
+    let pointsGeometry = new THREE.BufferGeometry();
+    let pointsMaterial = new THREE.PointsMaterial({ color: 0x00ffff, size: 0.05 });
+
+    let positions = [];
+    for (let i = 0; i < 1000; i++) {
+        positions.push((Math.random() * 20 - 10));
+        positions.push((Math.random() * 20 - 10));
+        positions.push((Math.random() * 20 - 10));
+    }
+
+    pointsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    let points = new THREE.Points(pointsGeometry, pointsMaterial);
+    scene.add(points);
+
+    camera.position.z = 5;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.x += 0.001;
+        points.rotation.y += 0.001;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+</script>
+
+</body>
+</html>
