@@ -83,4 +83,6 @@ o	Steps to start the web application.
 6.	Results and Insights: Summarize key findings from the analysis and model performance.
 7.	Contributions: Guidelines for contributing to the project.
 
+# License
+This project is licensed under the MIT License.
 
