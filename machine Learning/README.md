@@ -4,8 +4,8 @@ This project aims to analyze customer churn data and build a predictive model to
 
 ## Project Steps
 Data Understanding
--> Objective: Familiarize with the dataset and understand the business problem.
--> Steps:Load the dataset and inspect its structure.
+> Objective: Familiarize with the dataset and understand the business problem.
+> Steps:Load the dataset and inspect its structure.
 Review key features such as customer_id, credit_score, country, gender, age, tenure, balance, products_number, credit_card, active_member, estimated_salary, and churn.
 Identify the target variable (churn) and other relevant features.
 Check for missing values, data types, and overall dataset quality.
