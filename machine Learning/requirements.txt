@@ -1,0 +1,25 @@
+# Data manipulation and analysis
+pandas==2.0.3
+numpy==1.25.2
+
+# Data visualization
+matplotlib==3.8.0
+seaborn==0.12.2
+plotly==5.15.0
+requests==2.32.3
+template-render==0.1.0
+
+# Machine learning
+scikit-learn==1.3.1
+xgboost==1.7.6
+
+# Model saving
+joblib==1.3.2
+jsonify==0.5
+# Web application
+flask==2.3.3
+streamlit==1.26.0
+
+
+# Miscellaneous
+jupyter==1.0.0
