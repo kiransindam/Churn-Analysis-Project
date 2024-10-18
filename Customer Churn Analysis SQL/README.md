@@ -92,7 +92,7 @@ HAVING churn_rate > 0.5
 ORDER BY churn_rate DESC;
 Purpose: To find age and tenure combinations associated with higher churn rates.
 
-# Query 6: Calculate the cumulative churn rate by country using a window function.
+####  Query 6: Calculate the cumulative churn rate by country using a window function.
 
 sql
 Copy code
