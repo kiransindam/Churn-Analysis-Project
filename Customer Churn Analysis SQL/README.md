@@ -1,64 +1,122 @@
-# Project Overview
-The Customer Churn Analysis project involves the following steps:
+# Customer Churn Analysis: SQL Documentation
+This documentation provides an overview of how to use SQL for data exploration, analysis, and insights extraction in the Customer Churn Analysis project. It covers setting up the database, writing SQL queries of varying complexity, and interpreting the results to understand factors influencing customer churn.
 
-# Data Preparation and Cleaning:
+# 1. Database Setup
+The dataset contains information about customers, including demographic details, account attributes, and churn status. We'll begin by creating a table to store the data:
 
-Importing the dataset and performing data cleaning (handling missing values, duplicates, etc.).
-Ensuring correct data types for each column and preparing the data for analysis.
-Exploratory Data Analysis (EDA):
-
-Conducting an initial analysis to understand the data distribution and relationships.
-Visualizing various factors that might influence churn, such as age, credit score, and account balance.
-Data Visualization with Power BI:
-
-Creating a Power BI dashboard to present key metrics and insights.
-Utilizing various charts (bar charts, line charts, scatter plots, etc.) to display churn trends, customer segmentation, and financial impact.
-Adding interactive features like slicers and filters to allow users to explore the data.
-Key Sections of the Dashboard:
-
-Churn Overview: Displays the overall churn rate, total customers, and key financial metrics.
-Segmentation Analysis: Shows churn patterns across different demographic and behavioral segments.
-Churn Drivers: Highlights factors correlated with churn, such as credit score, product ownership, and active membership status.
-Time Series Analysis: Illustrates churn trends over time if date-related data is available.
-Insights and Recommendations:
-
-Analyzing the main drivers of churn based on data patterns.
-Providing recommendations for targeted customer retention strategies.
-Predictive Modeling (Optional):
-
-Implementing machine learning models (e.g., logistic regression, decision trees) to predict customer churn.
-Visualizing the model's output in Power BI for actionable insights.
-
-# Dataset Description
-The dataset used in this project includes the following features:
-
+sql
+Copy code
+CREATE TABLE customer_churn (
+    customer_id INT PRIMARY KEY,
+    credit_score INT,
+    country VARCHAR(50),
+    gender VARCHAR(10),
+    age INT,
+    tenure INT,
+    balance DECIMAL(15, 2),
+    products_number INT,
+    credit_card TINYINT(1),
+    active_member TINYINT(1),
+    estimated_salary DECIMAL(15, 2),
+    churn TINYINT(1)
+);
 customer_id: Unique identifier for each customer.
-credit_score: Customer's credit score.
-country: Country of residence.
-gender: Customer's gender.
-age: Customer's age.
-tenure: Number of years associated with the company.
-balance: Account balance.
-products_number: Number of products owned.
-credit_card: Indicates if the customer has a credit card.
-active_member: Indicates if the customer is an active member.
-estimated_salary: Estimated salary of the customer.
-churn: Target variable indicating whether the customer has churned.
+credit_score: Credit score of the customer.
+country: The country where the customer resides.
+gender: Gender of the customer (Male/Female).
+age: Age of the customer.
+tenure: Number of years the customer has been with the bank.
+balance: Current balance in the customer’s account.
+products_number: Number of bank products the customer uses.
+credit_card: Indicator of whether the customer has a credit card (1 = Yes, 0 = No).
+active_member: Indicator of whether the customer is an active bank member (1 = Yes, 0 = No).
+estimated_salary: Estimated annual salary of the customer.
+churn: Indicates if the customer churned (1 = Yes, 0 = No).
 
-# Clone the repository:
-git clone https://github.com/kiransindam/Churn-Analysis-Project.git
-Open the Power BI file (Customer Churn Analysis.pbix) to view the dashboard.
+# 2. SQL Query Guide
+This guide is divided into three categories: Basic, Intermediate, and Advanced queries. Each level provides a different depth of analysis.
 
-Follow the provided instructions for any optional predictive modeling or additional data exploration.
+# 2.1 Basic SQL Queries
+Basic queries are used to retrieve and filter data, perform simple calculations, and understand the distribution of data.
 
-# Project Structure
-data: Contains the dataset used for analysis.
-Customer Churn Analysis.pbix: The Power BI dashboard file.
-Insights
-Key drivers of churn identified include low credit scores, high age groups, and inactive memberships.
-Recommendations for reducing churn focus on improving customer engagement and offering targeted retention strategies.
-Contributing
-Feel free to contribute to this project by adding new features, improving the dashboard, or optimizing the code.
+####  Query 1: Retrieve all customers from France.
+
+sql
+Copy code
+SELECT * FROM customer_churn
+WHERE country = 'France';
+Purpose: To list customers based on geographical location.
+
+####  Query 2: Find the average credit score of all customers.
+
+sql
+Copy code
+SELECT AVG(credit_score) AS average_credit_score
+FROM customer_churn;
+Purpose: To calculate the average credit score of the bank's customers.
+
+# 2.2 Intermediate SQL Queries
+Intermediate queries involve aggregations, grouping, and filtering based on certain criteria.
+
+####  Query 3: Get the total number of customers who have churned, grouped by gender.
+
+sql
+Copy code
+SELECT gender, COUNT(*) AS churned_customers
+FROM customer_churn
+WHERE churn = 1
+GROUP BY gender;
+Purpose: To analyze the distribution of churn across different genders.
+
+####  Query 4: Calculate the average balance of customers, grouped by the number of products they use.
+
+sql
+Copy code
+SELECT products_number, AVG(balance) AS average_balance
+FROM customer_churn
+GROUP BY products_number;
+Purpose: To understand how the number of products relates to customer account balance.
+
+# 2.3 Advanced SQL Queries
+Advanced queries use more complex techniques, such as subqueries, window functions, and conditional aggregations.
+
+#### Query 5: Identify customers who are more likely to churn based on age and tenure.
+
+sql
+Copy code
+SELECT age, tenure, 
+       SUM(churn) / COUNT(*) AS churn_rate
+FROM customer_churn
+GROUP BY age, tenure
+HAVING churn_rate > 0.5
+ORDER BY churn_rate DESC;
+Purpose: To find age and tenure combinations associated with higher churn rates.
+
+# Query 6: Calculate the cumulative churn rate by country using a window function.
+
+sql
+Copy code
+SELECT country, churn,
+       SUM(churn) OVER (PARTITION BY country ORDER BY customer_id) AS cumulative_churn
+FROM customer_churn;
+Purpose: To track the progression of churn within each country.
+
+# 3. Query Interpretation
+
+Interpreting SQL query results is crucial for gaining insights:
+High Churn Rate Groups: Identifying demographics or account attributes associated with high churn rates can guide targeted retention strategies.
+Average Metrics Analysis: Understanding averages, such as credit scores or balances, provides context for customer segmentation.
+Grouping and Aggregation: Helps uncover patterns across different groups (e.g., by age, gender, or number of products).
+
+# 4. Best Practices
+
+Use Indexes: Improve query performance by indexing commonly used columns, such as customer_id and churn.
+Write Efficient Queries: Avoid unnecessary subqueries or joins when simple filters can be applied.
+Data Validation: Regularly validate the dataset to ensure data integrity before running complex queries.
+
+# 5. Conclusion
+
+Using SQL in this project provides a robust approach to understanding customer churn. It facilitates data exploration, enables advanced analytics, and supports decision-making processes for customer retention. This documentation serves as a guide for beginners and intermediate users to practice SQL skills while solving real-world business problems.
 
 # License
 This project is licensed under the MIT License.
