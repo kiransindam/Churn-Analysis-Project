@@ -1,4 +1,5 @@
-![Uploading Understanding Customer Churn.jpg…]()![Understanding Customer Churn](https://github.com/user-attachments/assets/64138e13-b2f5-4fe9-bedf-1844a440bfa0)
+![Understanding Customer Churn](https://github.com/user-attachments/assets/975827a3-dd96-4822-bba2-c6bbc41e4c41)
+
 # Project Overview
 The Customer Churn Analysis project involves the following steps:
 
@@ -63,4 +64,6 @@ Feel free to contribute to this project by adding new features, improving the da
 
 # License
 This project is licensed under the MIT License.
-![tech-whitepapers-saas ](https://github.com/user-attachments/assets/a72e2f71-ebc9-4ee2-a2e6-1f958fab0760)
+
+![tech-whitepapers-saas ](https://github.com/user-attachments/assets/b08f8e07-7d33-42e9-9c42-46a69743a44c)
+
